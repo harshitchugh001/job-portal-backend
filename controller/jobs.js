@@ -25,10 +25,12 @@ exports.addJob = async (req, res) => {
 };
 
 exports.getJob = async (req, res) => {
+    console.log("hlo");
   try {
-    const { jobId } = req.params;
+    const  jobId  = req.query.jobId;
+    console.log(req.query);
+    console.log(jobId)
 
-    
     const job = await JobProfile.findOne({ jobId });
 
     if (!job) {
