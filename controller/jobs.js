@@ -86,7 +86,7 @@ exports.getAllJobs = async (req, res) => {
       }  
       const uniqueId = uuid.v4();
       const token = jwt.sign({ userId, jobId, uniqueId }, process.env.JWT_ACCOUNT_ACTIVATION, { expiresIn: '1day' });
-      const shareLink = `http://localhost:5173/?link=${token}`
+      const shareLink = `http://localhost:5173/referal?link=${token}`
       return res.status(200).json({ shareLink });
     } catch (error) {
       console.error("Error generating share link:", error);
