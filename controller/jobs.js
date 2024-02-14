@@ -86,7 +86,7 @@ exports.getAllJobs = async (req, res) => {
       }  
       const uniqueId = uuid.v4();
       const token = jwt.sign({ userId, jobId, uniqueId }, process.env.JWT_ACCOUNT_ACTIVATION, { expiresIn: '1day' });
-      const shareLink = `http://localhost:5173/referal?link=${token}`
+      const shareLink = `https://job-portal-yqqs.onrender.com/api/referal?link=${token}`
       return res.status(200).json({ shareLink });
     } catch (error) {
       console.error("Error generating share link:", error);
@@ -95,14 +95,25 @@ exports.getAllJobs = async (req, res) => {
   };
 
 
-  exports.referalbylink =async (req,res)=>{
-    try{
-      const jobId = req.body.jobId;
-
-    }catch (error){
-
+  exports.referalbylink = async (req, res) => {
+    try {
+      const token = req.query.token;
+  
+      const { userId, jobId, uniqueId } = jwt.decode(token);
+  
+     
+      
+      const redirectURL = `http://localhost:5173/job/${jobId}`;
+  
+      
+      return res.redirect(redirectURL);
+    } catch (error) {
+      console.error("Error processing referral link:", error);
+      
+      return res.status(500).json({ error: "Internal Server Error" });
     }
   };
+  
   
 
 

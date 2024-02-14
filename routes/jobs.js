@@ -6,6 +6,7 @@ const {
     getJob,
     getAllJobs,
     generatelink,
+    referalbylink,
 } = require('../controller/jobs');
 
 
@@ -13,7 +14,8 @@ const {
 router.post('/addjob', addJob);
 router.get('/getjob', getJob);
 router.get('/getalljob', getAllJobs);
-router.post('/generatejoblink',generatelink)
+router.post('/generatejoblink',generatelink);
+router.get('/referal',referalbylink);
 
 
 module.exports = router;
