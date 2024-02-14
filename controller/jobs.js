@@ -97,7 +97,7 @@ exports.getAllJobs = async (req, res) => {
 
   exports.referalbylink = async (req, res) => {
     try {
-      const token = req.query.token;
+      const token = req.query.link;
   
       const { userId, jobId, uniqueId } = jwt.decode(token);
   
