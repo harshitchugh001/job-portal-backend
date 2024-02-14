@@ -13,7 +13,7 @@ const {
 router.post('/addjob', addJob);
 router.get('/getjob', getJob);
 router.get('/getalljob', getAllJobs);
-router.get('/generatejoblink',generatelink)
+router.post('/generatejoblink',generatelink)
 
 
 module.exports = router;
