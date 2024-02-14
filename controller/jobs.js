@@ -86,11 +86,21 @@ exports.getAllJobs = async (req, res) => {
       }  
       const uniqueId = uuid.v4();
       const token = jwt.sign({ userId, jobId, uniqueId }, process.env.JWT_ACCOUNT_ACTIVATION, { expiresIn: '1day' });
-      const shareLink = `http://localhost:3000/?link=${token}`
+      const shareLink = `http://localhost:5173/?link=${token}`
       return res.status(200).json({ shareLink });
     } catch (error) {
       console.error("Error generating share link:", error);
       return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+
+
+  exports.referalbylink =async (req,res)=>{
+    try{
+      const jobId = req.body.jobId;
+
+    }catch (error){
+
     }
   };
   
