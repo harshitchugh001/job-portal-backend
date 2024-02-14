@@ -1,4 +1,7 @@
 const JobProfile = require('../model/jobs');
+const uuid = require('uuid');
+const jwt = require('jsonwebtoken');
+const expressJwt = require('express-jwt');
 
 exports.addJob = async (req, res) => {
     console.log("hlo");
@@ -70,5 +73,29 @@ exports.getAllJobs = async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
   };
+
+
+  exports.generatelink = async (req, res) => {
+    try {
+      const jobId = req.body.jobId;
+      const userId=req.body.userId; 
+      const job = await JobProfile.findOne({ jobId });
+  
+      if (!job) {
+        return res.status(404).json({ error: "Job does not exist" });
+      }  
+      const uniqueId = uuid.v4();
+      const token = jwt.sign({ userId, jobId, uniqueId }, process.env.JWT_ACCOUNT_ACTIVATION, { expiresIn: '1day' });
+      const shareLink = `http://localhost:3000/?link=${token}`
+      return res.status(200).json({ shareLink });
+    } catch (error) {
+      console.error("Error generating share link:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+  
+
+
+
   
   
